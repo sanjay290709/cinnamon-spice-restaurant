@@ -1,0 +1,23 @@
+{
+  "name": "cinnamon-spice-website",
+  "version": "2.0.0",
+  "description": "Redesigned Web Application for Cinnamon Spice Indian Restaurant with Geo-Location Messaging",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "keywords": [
+    "restaurant",
+    "indian-cuisine",
+    "cinnamon-spice",
+    "geo-fencing",
+    "delivery-checker"
+  ],
+  "author": "Cinnamon Spice Tech Team",
+  "license": "ISC"
+}

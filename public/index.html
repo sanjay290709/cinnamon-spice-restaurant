@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinnamon Spice Indian Restaurant | Clarkson WA</title>
+  <meta name="description" content="Authentic Indian Restaurant in Clarkson, WA. Rich curries, tandoori kebabs, freshly baked naan, online ordering & table reservation.">
+
+  <!-- Favicon & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS & FontAwesome Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            warm: {
+              50: '#FFFDF9',
+              100: '#FAF4EC',
+              200: '#F3E7D7',
+              300: '#E8D4BB',
+              400: '#D9B790',
+              500: '#C28E5C',
+              600: '#A76F3B',
+              700: '#8A532A',
+              800: '#6E3E1C',
+              900: '#4A2710'
+            },
+            cinnamon: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+              800: '#9a3412',
+              900: '#7c2d12'
+            },
+            darkbg: {
+              main: '#0f0f11',
+              card: '#18181b',
+              border: '#27272a'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- GloriaFood Widget Script -->
+  <script src="https://www.fbgcdn.com/embedder/js/ewm2.js" defer async></script>
+</head>
+
+<body class="bg-[#FAF7F2] dark:bg-darkbg-main text-stone-800 dark:text-slate-100 font-sans antialiased selection:bg-cinnamon-600 selection:text-white transition-colors duration-300">
+
+  <!-- Blinkit/Zomato Style Geo-Location Banner Bar -->
+  <div id="geo-banner-bar" class="bg-gradient-to-r from-amber-600 via-cinnamon-600 to-orange-600 dark:from-amber-700 dark:via-cinnamon-800 dark:to-orange-700 text-white text-xs sm:text-sm py-2.5 px-4 shadow-md hidden transition-all duration-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2 font-semibold">
+        <span class="animate-pulse flex h-2.5 w-2.5 rounded-full bg-emerald-300"></span>
+        <i class="fa-solid fa-location-dot text-amber-200"></i>
+        <span id="geo-banner-text">Detecting your location for instant delivery offers...</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="geo-promo-code" class="bg-black/20 backdrop-blur-sm px-3 py-0.5 rounded font-mono font-bold text-amber-100 border border-white/30 text-xs"></span>
+        <button onclick="triggerGloriaFoodOrder()" class="bg-white text-cinnamon-900 hover:bg-amber-50 font-bold px-3 py-1 rounded text-xs transition duration-200 shadow hover:scale-105 active:scale-95">
+          Order Now <i class="fa-solid fa-arrow-right ml-1"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-darkbg-main/90 backdrop-blur-md border-b border-amber-200/60 dark:border-darkbg-border shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-cinnamon-600 to-amber-500 flex items-center justify-center text-white shadow-md group-hover:rotate-12 transition-transform duration-300">
+          <i class="fa-solid fa-pepper-hot text-xl"></i>
+        </div>
+        <div>
+          <span class="font-serif text-2xl font-bold tracking-tight text-stone-900 dark:text-white group-hover:text-cinnamon-700 dark:group-hover:text-amber-400 transition">Cinnamon Spice</span>
+          <span class="block text-[10px] tracking-widest uppercase text-cinnamon-600 dark:text-amber-500 font-bold">Indian Restaurant • Clarkson</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-700 dark:text-slate-300">
+        <a href="#hero" class="hover:text-cinnamon-700 dark:hover:text-amber-400 transition hover:-translate-y-0.5 transform inline-block">Home</a>
+        <a href="#menu" class="hover:text-cinnamon-700 dark:hover:text-amber-400 transition hover:-translate-y-0.5 transform inline-block">Menu</a>
+        <a href="#geo-section" class="hover:text-cinnamon-700 dark:hover:text-amber-400 transition flex items-center gap-1.5 text-cinnamon-700 dark:text-amber-400 font-bold bg-amber-100/60 dark:bg-amber-950/40 px-3 py-1.5 rounded-full border border-amber-200 dark:border-amber-500/30 hover:shadow-md transform hover:-translate-y-0.5">
+          <i class="fa-solid fa-bolt text-amber-600 dark:text-amber-400 text-xs animate-bounce-short"></i> Delivery Zone
+        </a>
+        <a href="#reviews" class="hover:text-cinnamon-700 dark:hover:text-amber-400 transition hover:-translate-y-0.5 transform inline-block">Reviews</a>
+        <a href="#contact" class="hover:text-cinnamon-700 dark:hover:text-amber-400 transition hover:-translate-y-0.5 transform inline-block">Contact</a>
+      </nav>
+
+      <!-- Action CTA Buttons & Theme Toggle Switch -->
+      <div class="hidden sm:flex items-center gap-4">
+        
+        <!-- Theme Toggle Switch Button -->
+        <button id="theme-toggle-btn" onclick="toggleTheme()" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-warm-100 dark:bg-darkbg-card text-stone-700 dark:text-amber-300 border border-amber-300 dark:border-darkbg-border hover:border-cinnamon-600 transition shadow-sm text-xs font-bold hover:scale-105 active:scale-95 transform" title="Toggle Light / Dark Mode">
+          <i id="theme-toggle-icon" class="fa-solid fa-moon text-amber-500"></i>
+          <span id="theme-toggle-label" class="hidden lg:inline">Dark</span>
+        </button>
+
+        <!-- GloriaFood Order Online -->
+        <span class="glf-button" data-glf-cuid="969a19b5-0c82-40bf-a96b-a7d3fec7576b" data-glf-ruid="42584b6e-40b5-4ebb-aaee-47b7fc341f56" style="display:inline-block;">
+          Order Online
+        </span>
+        <!-- GloriaFood Table Reservation -->
+        <span class="glf-button reservation" data-glf-cuid="969a19b5-0c82-40bf-a96b-a7d3fec7576b" data-glf-ruid="42584b6e-40b5-4ebb-aaee-47b7fc341f56" data-glf-reservation="true" style="display:inline-block;">
+          Reserve Table
+        </span>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <div class="flex items-center gap-2 sm:hidden">
+        <button onclick="toggleTheme()" class="p-2 text-stone-700 dark:text-amber-400">
+          <i id="theme-toggle-icon-mobile" class="fa-solid fa-moon"></i>
+        </button>
+        <button id="mobile-menu-btn" class="text-stone-700 dark:text-slate-200 text-xl p-2">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-warm-100 dark:bg-darkbg-card border-b border-amber-200 dark:border-darkbg-border px-4 py-4 space-y-3">
+      <a href="#hero" class="block text-stone-800 dark:text-slate-200 hover:text-cinnamon-700 font-semibold">Home</a>
+      <a href="#menu" class="block text-stone-800 dark:text-slate-200 hover:text-cinnamon-700 font-semibold">Menu</a>
+      <a href="#geo-section" class="block text-cinnamon-700 dark:text-amber-400 font-bold">⚡ Location & Delivery Zone</a>
+      <a href="#reviews" class="block text-stone-800 dark:text-slate-200 hover:text-cinnamon-700 font-semibold">Reviews</a>
+      <a href="#contact" class="block text-stone-800 dark:text-slate-200 hover:text-cinnamon-700 font-semibold">Contact</a>
+      <div class="pt-2 flex flex-col gap-2">
+        <span class="glf-button w-full text-center" data-glf-cuid="969a19b5-0c82-40bf-a96b-a7d3fec7576b" data-glf-ruid="42584b6e-40b5-4ebb-aaee-47b7fc341f56">Order Online</span>
+        <span class="glf-button reservation w-full text-center" data-glf-cuid="969a19b5-0c82-40bf-a96b-a7d3fec7576b" data-glf-ruid="42584b6e-40b5-4ebb-aaee-47b7fc341f56" data-glf-reservation="true">Reserve Table</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with Floating Orbs & Modern Animation -->
+  <section id="hero" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-16 bg-gradient-to-b from-warm-100 via-[#FAF7F2] to-amber-50/50 dark:from-darkbg-main dark:via-darkbg-main dark:to-darkbg-card/50 transition-colors duration-300">
+    
+    <!-- Floating Decorative Background Orbs -->
+    <div class="absolute top-10 right-10 w-96 h-96 bg-amber-300/30 dark:bg-amber-600/10 rounded-full blur-3xl -z-0 animate-orb-1 pointer-events-none"></div>
+    <div class="absolute bottom-10 left-10 w-96 h-96 bg-cinnamon-300/25 dark:bg-orange-600/10 rounded-full blur-3xl -z-0 animate-orb-2 pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <!-- Live Status Badge & Distance Badge -->
+      <div class="inline-flex items-center gap-3 bg-white/90 dark:bg-darkbg-card/90 backdrop-blur border border-amber-300/80 dark:border-amber-500/30 rounded-full px-4 py-2 mb-6 text-xs sm:text-sm shadow-md animate-orb-1">
+        <span class="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-bold">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-breath absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          Open Today: 4:30 PM - 9:30 PM
+        </span>
+        <span class="text-stone-300 dark:text-slate-600">|</span>
+        <span id="hero-geo-badge" class="text-cinnamon-800 dark:text-amber-300 font-bold">
+          <i class="fa-solid fa-crosshairs animate-spin text-xs mr-1 text-cinnamon-600 dark:text-amber-400"></i> Checking location...
+        </span>
+      </div>
+
+      <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 dark:text-white mb-6 leading-tight reveal-fade-up">
+        Experience Authentic <br class="hidden sm:inline">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cinnamon-700 via-amber-600 to-orange-600 dark:from-amber-400 dark:via-amber-200 dark:to-orange-400">Indian Cuisine</span> in Clarkson
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-base sm:text-lg text-stone-600 dark:text-slate-300 mb-8 leading-relaxed font-medium reveal-fade-up delay-100">
+        Hand-ground aromatic spices, creamy butter chicken, fiery vindaloos, and piping hot naan fresh from our traditional tandoor oven.
+      </p>
+
+      <!-- Primary Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 reveal-fade-up delay-200">
+        <span class="glf-button text-base px-8 py-3.5 shadow-lg cursor-pointer" data-glf-cuid="969a19b5-0c82-40bf-a96b-a7d3fec7576b" data-glf-ruid="42584b6e-40b5-4ebb-aaee-47b7fc341f56">
+          <i class="fa-solid fa-utensils mr-2"></i> Order Online Now
+        </span>
+        <span class="glf-button reservation text-base px-8 py-3.5 shadow-lg cursor-pointer" data-glf-cuid="969a19b5-0c82-40bf-a96b-a7d3fec7576b" data-glf-ruid="42584b6e-40b5-4ebb-aaee-47b7fc341f56" data-glf-reservation="true">
+          <i class="fa-solid fa-chair mr-2"></i> Reserve a Table
+        </span>
+      </div>
+
+      <!-- Quick Feature Highlights -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8 border-t border-amber-200/80 dark:border-darkbg-border text-left reveal-fade-up delay-300">
+        <div class="card-modern flex items-center gap-3 bg-white dark:bg-darkbg-card p-4 rounded-2xl border border-amber-200 dark:border-darkbg-border shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-cinnamon-700 dark:text-amber-400 flex items-center justify-center shrink-0 text-xl font-bold">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-stone-900 dark:text-white">Express Delivery</div>
+            <div class="text-xs text-stone-500 dark:text-slate-400 font-medium">10km Radius</div>
+          </div>
+        </div>
+        <div class="card-modern flex items-center gap-3 bg-white dark:bg-darkbg-card p-4 rounded-2xl border border-amber-200 dark:border-darkbg-border shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-cinnamon-700 dark:text-amber-400 flex items-center justify-center shrink-0 text-xl font-bold">
+            <i class="fa-solid fa-pepper-hot"></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-stone-900 dark:text-white">Fresh Ground</div>
+            <div class="text-xs text-stone-500 dark:text-slate-400 font-medium">Authentic Spices</div>
+          </div>
+        </div>
+        <div class="card-modern flex items-center gap-3 bg-white dark:bg-darkbg-card p-4 rounded-2xl border border-amber-200 dark:border-darkbg-border shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-cinnamon-700 dark:text-amber-400 flex items-center justify-center shrink-0 text-xl font-bold">
+            <i class="fa-solid fa-certificate"></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-stone-900 dark:text-white">100% Halal</div>
+            <div class="text-xs text-stone-500 dark:text-slate-400 font-medium">Vegan & GF Available</div>
+          </div>
+        </div>
+        <div class="card-modern flex items-center gap-3 bg-white dark:bg-darkbg-card p-4 rounded-2xl border border-amber-200 dark:border-darkbg-border shadow-sm">
+          <div class="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-950/60 text-cinnamon-700 dark:text-amber-400 flex items-center justify-center shrink-0 text-xl font-bold">
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-stone-900 dark:text-white">4.8 Star Rated</div>
+            <div class="text-xs text-stone-500 dark:text-slate-400 font-medium">Perth Local Favorite</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Blinkit/Zomato Style Geo-Fencing Section & Suburb Checker -->
+  <section id="geo-section" class="py-16 bg-warm-100 dark:bg-darkbg-card/40 border-y border-amber-200 dark:border-darkbg-border relative transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-white dark:bg-darkbg-card rounded-3xl p-6 sm:p-10 border border-amber-200/90 dark:border-amber-500/20 shadow-xl relative overflow-hidden reveal-fade-up">
+        <div class="absolute -right-10 -bottom-10 opacity-5 dark:opacity-10 text-cinnamon-700 dark:text-amber-500 pointer-events-none">
+          <i class="fa-solid fa-map-location-dot text-[240px]"></i>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div class="lg:col-span-7 space-y-4">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-500/10 text-cinnamon-800 dark:text-amber-400 text-xs font-bold uppercase tracking-wider border border-amber-300 dark:border-amber-500/20">
+              <i class="fa-solid fa-bolt text-amber-600 dark:text-amber-400 animate-pulse"></i> Live Distance Engine
+            </span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">Are You in Our 10km Delivery Radius?</h2>
+            <p class="text-stone-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-medium">
+              We deliver hot, fresh Indian meals directly from our Clarkson kitchen. Detect your browser location to automatically calculate delivery time & unlock special offers!
+            </p>
+
+            <!-- Distance Result Card -->
+            <div id="geo-card-result" class="bg-amber-50/80 dark:bg-darkbg-main/80 rounded-2xl p-5 border border-amber-300 dark:border-darkbg-border mt-4 hidden shadow-sm transition-all duration-500">
+              <div class="flex items-start gap-4">
+                <div id="geo-icon-badge" class="w-12 h-12 rounded-xl bg-cinnamon-600 dark:bg-amber-500/20 text-white dark:text-amber-400 flex items-center justify-center text-xl shrink-0 shadow-md">
+                  <i class="fa-solid fa-location-crosshairs"></i>
+                </div>
+                <div class="space-y-1">
+                  <h4 id="geo-card-title" class="font-bold text-stone-900 dark:text-white text-base"></h4>
+                  <p id="geo-card-body" class="text-stone-700 dark:text-slate-300 text-xs sm:text-sm font-medium"></p>
+                  <div class="pt-2 flex flex-wrap items-center gap-3">
+                    <span id="geo-card-time" class="text-xs font-bold text-emerald-800 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/30 px-3 py-1 rounded-lg"></span>
+                    <span id="geo-card-code" class="text-xs font-mono font-bold text-cinnamon-800 dark:text-amber-300 bg-amber-200/80 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-500/30 px-3 py-1 rounded-lg"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <button onclick="requestBrowserLocation()" class="bg-cinnamon-700 hover:bg-cinnamon-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white font-bold px-6 py-3 rounded-xl text-sm transition shadow-md flex items-center gap-2 transform hover:scale-105 active:scale-95">
+                <i class="fa-solid fa-location-arrow"></i> Detect My Location
+              </button>
+            </div>
+          </div>
+
+          <!-- Suburb & Postcode Quick Checker -->
+          <div class="lg:col-span-5 bg-warm-100 dark:bg-darkbg-main rounded-2xl p-6 border border-amber-200 dark:border-darkbg-border shadow-md">
+            <h3 class="font-bold text-lg text-stone-900 dark:text-white mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass-location text-cinnamon-600 dark:text-amber-400"></i> Check by Suburb / Postcode
+            </h3>
+            <p class="text-xs text-stone-600 dark:text-slate-400 mb-4 font-medium">Enter your suburb (e.g. Clarkson, Merriwa, Mindarie, Butler, Quinns Rocks) to check instant eligibility.</p>
+            
+            <form id="suburb-form" class="space-y-3" onsubmit="handleSuburbSearch(event)">
+              <div class="relative">
+                <input type="text" id="suburb-input" placeholder="Enter suburb or postcode..." class="w-full bg-white dark:bg-darkbg-card border border-amber-300 dark:border-darkbg-border focus:border-cinnamon-600 dark:focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-slate-500 outline-none transition shadow-sm">
+                <button type="submit" class="absolute right-1.5 top-1.5 bottom-1.5 bg-cinnamon-700 hover:bg-cinnamon-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white px-5 rounded-lg text-xs font-bold transition shadow hover:scale-105">
+                  Check
+                </button>
+              </div>
+            </form>
+
+            <div id="suburb-result" class="mt-4 text-xs p-3 rounded-xl hidden font-medium transition-all duration-300"></div>
+
+            <div class="mt-4 pt-3 border-t border-amber-200/80 dark:border-darkbg-border text-xs text-stone-600 dark:text-slate-400 flex flex-wrap gap-1.5">
+              <span class="text-stone-900 dark:text-slate-200 font-bold">Popular suburbs:</span>
+              <span class="cursor-pointer underline hover:text-cinnamon-700 dark:hover:text-amber-400 font-semibold transition" onclick="quickCheckSuburb('Clarkson')">Clarkson</span> •
+              <span class="cursor-pointer underline hover:text-cinnamon-700 dark:hover:text-amber-400 font-semibold transition" onclick="quickCheckSuburb('Mindarie')">Mindarie</span> •
+              <span class="cursor-pointer underline hover:text-cinnamon-700 dark:hover:text-amber-400 font-semibold transition" onclick="quickCheckSuburb('Merriwa')">Merriwa</span> •
+              <span class="cursor-pointer underline hover:text-cinnamon-700 dark:hover:text-amber-400 font-semibold transition" onclick="quickCheckSuburb('Butler')">Butler</span> •
+              <span class="cursor-pointer underline hover:text-cinnamon-700 dark:hover:text-amber-400 font-semibold transition" onclick="quickCheckSuburb('Quinns Rocks')">Quinns Rocks</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Menu Explorer Section -->
+  <section id="menu" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-12 reveal-fade-up">
+      <span class="text-cinnamon-700 dark:text-amber-400 font-bold text-xs tracking-widest uppercase mb-2 block">Our Culinary Offerings</span>
+      <h2 class="font-serif text-4xl sm:text-5xl font-bold text-stone-900 dark:text-white">Explore Our Spice Menu</h2>
+      <p class="text-stone-600 dark:text-slate-400 text-sm sm:text-base mt-3 font-medium">From silky butter chicken and rich lamb rogan josh to freshly baked garlic cheese naan and sweet gulab jamun.</p>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 reveal-fade-up delay-100">
+      <!-- Category Tabs -->
+      <div id="menu-categories" class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Search Input -->
+      <div class="relative w-full md:w-72 shrink-0">
+        <i class="fa-solid fa-search absolute left-3.5 top-3.5 text-stone-400 dark:text-slate-500 text-xs"></i>
+        <input type="text" id="menu-search" placeholder="Search dish or ingredient..." class="w-full bg-white dark:bg-darkbg-card border border-amber-300 dark:border-darkbg-border focus:border-cinnamon-600 dark:focus:border-amber-500 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-slate-500 pl-9 pr-4 py-3 rounded-xl outline-none transition shadow-sm font-medium" oninput="filterMenuItems()">
+      </div>
+    </div>
+
+    <!-- Menu Items Grid -->
+    <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Rendered dynamically by JS -->
+    </div>
+  </section>
+
+  <!-- Customer Reviews & Ratings -->
+  <section id="reviews" class="py-20 bg-amber-50/50 dark:bg-darkbg-card/50 border-t border-amber-200 dark:border-darkbg-border transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12 reveal-fade-up">
+        <div class="flex justify-center items-center gap-1 text-amber-500 dark:text-amber-400 text-xl mb-2">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">Loved by Our Local Community</h2>
+        <p class="text-stone-600 dark:text-slate-400 text-sm mt-2 font-medium">See what food lovers in Clarkson and Northern Perth suburbs have to say.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card-modern bg-white dark:bg-darkbg-main p-6 rounded-2xl border border-amber-200/80 dark:border-darkbg-border space-y-4 shadow-sm reveal-fade-up delay-100">
+          <div class="flex items-center gap-1 text-amber-500 dark:text-amber-400 text-xs">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-stone-700 dark:text-slate-300 text-sm italic font-serif">"Hands down the best Butter Chicken in the Clarkson area! The garlic cheese naan is soft and loaded with flavor. Delivery was super fast too."</p>
+          <div class="flex items-center gap-3 pt-2">
+            <div class="w-10 h-10 rounded-full bg-cinnamon-100 dark:bg-amber-600/30 text-cinnamon-800 dark:text-amber-300 font-bold flex items-center justify-center text-xs">SD</div>
+            <div>
+              <div class="text-xs font-bold text-stone-900 dark:text-white">Sarah D.</div>
+              <div class="text-[11px] text-stone-500 dark:text-slate-500">Mindarie, WA</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-modern bg-white dark:bg-darkbg-main p-6 rounded-2xl border border-amber-200/80 dark:border-darkbg-border space-y-4 shadow-sm reveal-fade-up delay-200">
+          <div class="flex items-center gap-1 text-amber-500 dark:text-amber-400 text-xs">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-stone-700 dark:text-slate-300 text-sm italic font-serif">"The Lamb Rogan Josh and Hyderabadi Biryani are exceptional. Authentic spice levels and rich sauces. Highly recommended!"</p>
+          <div class="flex items-center gap-3 pt-2">
+            <div class="w-10 h-10 rounded-full bg-cinnamon-100 dark:bg-amber-600/30 text-cinnamon-800 dark:text-amber-300 font-bold flex items-center justify-center text-xs">MJ</div>
+            <div>
+              <div class="text-xs font-bold text-stone-900 dark:text-white">Mark J.</div>
+              <div class="text-[11px] text-stone-500 dark:text-slate-500">Clarkson, WA</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-modern bg-white dark:bg-darkbg-main p-6 rounded-2xl border border-amber-200/80 dark:border-darkbg-border space-y-4 shadow-sm reveal-fade-up delay-300">
+          <div class="flex items-center gap-1 text-amber-500 dark:text-amber-400 text-xs">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-stone-700 dark:text-slate-300 text-sm italic font-serif">"Outstanding dine-in experience. Warm service, peaceful ambiance, and generous portion sizes. We reserve a table every couple of weeks."</p>
+          <div class="flex items-center gap-3 pt-2">
+            <div class="w-10 h-10 rounded-full bg-cinnamon-100 dark:bg-amber-600/30 text-cinnamon-800 dark:text-amber-300 font-bold flex items-center justify-center text-xs">RP</div>
+            <div>
+              <div class="text-xs font-bold text-stone-900 dark:text-white">Rohan P.</div>
+              <div class="text-[11px] text-stone-500 dark:text-slate-500">Butler, WA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location & Contact Section -->
+  <section id="contact" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      
+      <!-- Contact Info -->
+      <div class="space-y-6 reveal-fade-up">
+        <div>
+          <span class="text-cinnamon-700 dark:text-amber-400 text-xs font-bold uppercase tracking-wider block mb-1">Get In Touch</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">Visit Cinnamon Spice</h2>
+          <p class="text-stone-600 dark:text-slate-400 text-sm mt-2 font-medium">Located conveniently in Clarkson, WA. Drop in for dinner or place an online pickup order.</p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="card-modern flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-darkbg-card border border-amber-200 dark:border-darkbg-border shadow-sm">
+            <div class="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-cinnamon-700 dark:text-amber-400 flex items-center justify-center shrink-0 text-lg">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-stone-900 dark:text-white text-sm">Restaurant Address</h4>
+              <p class="text-xs text-stone-600 dark:text-slate-300 font-medium">Clarkson, WA 6030, Australia</p>
+            </div>
+          </div>
+
+          <div class="card-modern flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-darkbg-card border border-amber-200 dark:border-darkbg-border shadow-sm">
+            <div class="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-cinnamon-700 dark:text-amber-400 flex items-center justify-center shrink-0 text-lg">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-stone-900 dark:text-white text-sm">Phone Orders & Reservations</h4>
+              <p class="text-xs text-stone-600 dark:text-slate-300 font-medium"><a href="tel:0862052636" class="hover:text-cinnamon-700 dark:hover:text-amber-400 font-bold">08 6205 2636</a></p>
+            </div>
+          </div>
+
+          <div class="card-modern flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-darkbg-card border border-amber-200 dark:border-darkbg-border shadow-sm">
+            <div class="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-cinnamon-700 dark:text-amber-400 flex items-center justify-center shrink-0 text-lg">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-stone-900 dark:text-white text-sm">Opening Hours</h4>
+              <p class="text-xs text-stone-600 dark:text-slate-300 font-medium">04:30 PM - 09:30 PM Everyday</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Message Form -->
+      <div class="bg-white dark:bg-darkbg-card p-8 rounded-3xl border border-amber-200 dark:border-darkbg-border shadow-xl reveal-fade-up delay-200">
+        <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-2">Send Us a Message</h3>
+        <p class="text-xs text-stone-500 dark:text-slate-400 mb-6 font-medium">Have catering queries or special dietary requirements? Reach out directly.</p>
+
+        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">Your Name</label>
+            <input type="text" required id="contact-name" class="w-full bg-warm-50 dark:bg-darkbg-main border border-amber-300 dark:border-darkbg-border focus:border-cinnamon-600 dark:focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-stone-900 dark:text-white outline-none transition">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">Email</label>
+              <input type="email" required id="contact-email" class="w-full bg-warm-50 dark:bg-darkbg-main border border-amber-300 dark:border-darkbg-border focus:border-cinnamon-600 dark:focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-stone-900 dark:text-white outline-none transition">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">Phone</label>
+              <input type="tel" id="contact-phone" class="w-full bg-warm-50 dark:bg-darkbg-main border border-amber-300 dark:border-darkbg-border focus:border-cinnamon-600 dark:focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-stone-900 dark:text-white outline-none transition">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">Message</label>
+            <textarea rows="4" required id="contact-message" class="w-full bg-warm-50 dark:bg-darkbg-main border border-amber-300 dark:border-darkbg-border focus:border-cinnamon-600 dark:focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-stone-900 dark:text-white outline-none transition"></textarea>
+          </div>
+
+          <button type="submit" class="w-full bg-cinnamon-700 hover:bg-cinnamon-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white font-bold py-3 rounded-xl text-xs transition shadow-md hover:scale-[1.02] active:scale-95">
+            Send Message <i class="fa-solid fa-paper-plane ml-1"></i>
+          </button>
+        </form>
+
+        <div id="contact-status" class="mt-3 text-xs hidden"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Blinkit/Zomato Auto Location Modal Popup -->
+  <div id="geo-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 dark:bg-black/80 backdrop-blur-sm hidden">
+    <div class="bg-white dark:bg-darkbg-card border border-amber-300 dark:border-amber-500/40 rounded-3xl max-w-md w-full p-6 shadow-2xl relative animate-bounce-short">
+      <button onclick="closeGeoModal()" class="absolute right-4 top-4 text-stone-400 hover:text-stone-800 dark:hover:text-white p-1">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-500/20 text-cinnamon-700 dark:text-amber-400 flex items-center justify-center text-2xl mb-4">
+        <i class="fa-solid fa-truck-ramp-box"></i>
+      </div>
+
+      <h3 id="modal-title" class="font-serif text-xl font-bold text-stone-900 dark:text-white mb-2"></h3>
+      <p id="modal-body" class="text-xs text-stone-600 dark:text-slate-300 font-medium leading-relaxed mb-6"></p>
+
+      <div class="flex items-center justify-between bg-amber-50 dark:bg-darkbg-main p-3.5 rounded-xl border border-amber-200 dark:border-darkbg-border mb-6">
+        <span class="text-xs text-stone-600 dark:text-slate-400 font-medium">Promo Code:</span>
+        <span id="modal-code" class="font-mono font-bold text-cinnamon-800 dark:text-amber-400 text-sm bg-amber-200/80 dark:bg-amber-950/60 px-2.5 py-0.5 rounded border border-amber-300 dark:border-amber-500/30"></span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="closeGeoModal()" class="w-full bg-warm-100 dark:bg-darkbg-main hover:bg-amber-100 dark:hover:bg-slate-800 text-stone-800 dark:text-slate-300 font-bold py-2.5 rounded-xl text-xs border border-amber-300 dark:border-darkbg-border">
+          Explore Menu
+        </button>
+        <button onclick="triggerGloriaFoodOrder(); closeGeoModal();" class="w-full bg-cinnamon-700 hover:bg-cinnamon-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white font-bold py-2.5 rounded-xl text-xs shadow-md">
+          Order Online
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-stone-900 dark:bg-black border-t border-stone-800 py-10 text-xs text-stone-400">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+      <div class="flex justify-center items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-cinnamon-600 text-white flex items-center justify-center text-xs">
+          <i class="fa-solid fa-pepper-hot"></i>
+        </div>
+        <span class="font-serif text-amber-100 font-bold text-base">Cinnamon Spice Indian Restaurant</span>
+      </div>
+      <p>© 2026 Cinnamon Spice Indian Restaurant. All rights reserved. Clarkson, WA 6030.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/geo.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

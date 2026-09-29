@@ -1,0 +1,133 @@
+{
+  "categories": [
+    { "id": "starters", "name": "Starters & Entrées", "icon": "fa-utensils" },
+    { "id": "tandoori", "name": "Tandoori Specials", "icon": "fa-fire" },
+    { "id": "mains", "name": "Main Curries", "icon": "fa-bowl-food" },
+    { "id": "biryani", "name": "Biryani & Rice", "icon": "fa-bowl-rice" },
+    { "id": "breads", "name": "Naan & Breads", "icon": "fa-bread-slice" },
+    { "id": "desserts", "name": "Desserts", "icon": "fa-ice-cream" }
+  ],
+  "restaurant": {
+    "name": "Cinnamon Spice Indian Restaurant",
+    "location": "Clarkson, WA 6030, Australia",
+    "coordinates": {
+      "latitude": -31.6835,
+      "longitude": 115.7275
+    },
+    "phone": "08 6205 2636",
+    "hours": "04:30 PM - 09:30 PM Everyday",
+    "maxDeliveryRadiusKm": 10
+  },
+  "items": [
+    {
+      "id": "s1",
+      "name": "Samosa Chaat (2 pcs)",
+      "category": "starters",
+      "price": 12.90,
+      "spiceLevel": 1,
+      "dietary": ["Vegetarian"],
+      "description": "Crispy pastry stuffed with spiced potatoes and peas, layered with chickpeas, yogurt, tamarind & mint chutney.",
+      "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "s2",
+      "name": "Onion Bhaji (4 pcs)",
+      "category": "starters",
+      "price": 10.90,
+      "spiceLevel": 1,
+      "dietary": ["Vegan", "Gluten-Free"],
+      "description": "Crispy sliced onion fritters spiced with carom seeds, cumin, and chickpea flour fried to perfection.",
+      "image": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "t1",
+      "name": "Chicken Tikka (4 pcs)",
+      "category": "tandoori",
+      "price": 16.90,
+      "spiceLevel": 2,
+      "dietary": ["Gluten-Free", "Halal"],
+      "description": "Tender chicken fillets marinated overnight in spiced yogurt, ginger, garlic, and cooked in clay tandoor.",
+      "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "t2",
+      "name": "Tandoori Seekh Kebab",
+      "category": "tandoori",
+      "price": 17.90,
+      "spiceLevel": 2,
+      "dietary": ["Gluten-Free", "Halal"],
+      "description": "Succulent minced lamb infused with green chilies, cilantro, and roasted spices skewer-grilled over charcoal.",
+      "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "m1",
+      "name": "Signature Butter Chicken",
+      "category": "mains",
+      "price": 22.90,
+      "spiceLevel": 1,
+      "dietary": ["Gluten-Free", "Halal"],
+      "description": "Tandoori chicken smoked and simmered in a silky tomato, cashew nut, butter, and fenugreek leaf gravy.",
+      "image": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "m2",
+      "name": "Lamb Rogan Josh",
+      "category": "mains",
+      "price": 23.90,
+      "spiceLevel": 2,
+      "dietary": ["Gluten-Free", "Halal"],
+      "description": "Traditional Kashmiri tender lamb curry slow-cooked with aromatic fennel, Kashmiri red chilies, and cardamom.",
+      "image": "https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "m3",
+      "name": "Paneer Butter Masala",
+      "category": "mains",
+      "price": 19.90,
+      "spiceLevel": 1,
+      "dietary": ["Vegetarian", "Gluten-Free"],
+      "description": "Cottage cheese cubes cooked in a rich tomato, butter, and cashew sauce with bell peppers and fresh coriander.",
+      "image": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "m4",
+      "name": "Beef Vindaloo",
+      "category": "mains",
+      "price": 22.90,
+      "spiceLevel": 3,
+      "dietary": ["Gluten-Free"],
+      "description": "Goan specialty spicy curry cooked with slow-braised beef, malt vinegar, fiery red chilies, and whole spices.",
+      "image": "https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "b1",
+      "name": "Hyderabadi Chicken Biryani",
+      "category": "biryani",
+      "price": 21.90,
+      "spiceLevel": 2,
+      "dietary": ["Gluten-Free", "Halal"],
+      "description": "Aromatic Basmati rice layered with marinated chicken, saffron, mint, fried onions, and steamed dum-style.",
+      "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "br1",
+      "name": "Garlic & Cheese Naan",
+      "category": "breads",
+      "price": 6.50,
+      "spiceLevel": 0,
+      "dietary": ["Vegetarian"],
+      "description": "Fresh tandoori naan bread stuffed with tasty cheese and brushed with minced garlic butter.",
+      "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "d1",
+      "name": "Gulab Jamun (2 pcs)",
+      "category": "desserts",
+      "price": 7.90,
+      "spiceLevel": 0,
+      "dietary": ["Vegetarian"],
+      "description": "Warm golden milk dumplings soaked in cardamom and rose water syrup, served with vanilla ice cream.",
+      "image": "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80"
+    }
+  ]
+}
