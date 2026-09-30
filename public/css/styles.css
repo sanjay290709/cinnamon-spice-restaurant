@@ -5,6 +5,13 @@ html, body {
   max-width: 100vw;
 }
 
+/* Applied via JS when mobile menu is open — locks scroll on ALL browsers */
+body.scroll-locked {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+}
+
 @layer utilities {
   .scrollbar-none::-webkit-scrollbar {
     display: none;

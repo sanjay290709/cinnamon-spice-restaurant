@@ -106,11 +106,19 @@ function setupMobileMenu() {
     openTime = Date.now();
     mobileMenu.classList.remove('hidden', 'menu-closed');
     mobileMenu.classList.add('menu-open');
-    // Inline style ensures scroll lock works regardless of Tailwind purging
+
+    // Lock scroll — triple approach covers all browsers + iOS Safari
+    const scrollY = window.scrollY;
+    document.body.dataset.scrollY = scrollY;
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
-    document.body.style.touchAction = 'none';
-    // Swap hamburger to × using innerHTML for guaranteed icon change
-    menuBtn.innerHTML = '<i class="fa-solid fa-xmark" style="font-size:1.4rem; color:#c2410c; transition: transform 0.3s; transform: rotate(90deg);"></i>';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    document.body.classList.add('scroll-locked');
+
+    // Swap hamburger ☰ → ✕ by replacing button content
+    menuBtn.innerHTML = '<i class="fa-solid fa-xmark" style="font-size:1.5rem;color:#c2410c;display:block;line-height:1;"></i>';
   }
 
   function closeMobileMenu() {
@@ -118,11 +126,20 @@ function setupMobileMenu() {
     isOpen = false;
     mobileMenu.classList.remove('menu-open');
     mobileMenu.classList.add('menu-closed');
-    // Release scroll lock
+
+    // Restore scroll — undo all three lock layers
+    const scrollY = parseInt(document.body.dataset.scrollY || '0', 10);
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
-    document.body.style.touchAction = '';
-    // Restore hamburger icon
-    menuBtn.innerHTML = '<i id="mobile-menu-icon" class="fa-solid fa-bars" style="font-size:1.25rem; transition: transform 0.3s;"></i>';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.classList.remove('scroll-locked');
+    window.scrollTo(0, scrollY);
+
+    // Restore hamburger ✕ → ☰
+    menuBtn.innerHTML = '<i id="mobile-menu-icon" class="fa-solid fa-bars" style="font-size:1.3rem;display:block;line-height:1;"></i>';
+
     setTimeout(() => {
       if (!isOpen) mobileMenu.classList.add('hidden');
     }, 300);
