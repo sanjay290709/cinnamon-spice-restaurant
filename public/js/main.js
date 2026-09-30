@@ -92,6 +92,7 @@ function setTheme(theme) {
 // Mobile Menu Handler (Smooth Open/Close, Icon Toggle to ×, Swipe & Auto-Close on Click/Scroll)
 function setupMobileMenu() {
   const menuBtn = document.getElementById('mobile-menu-btn');
+  const menuIcon = document.getElementById('mobile-menu-icon');
   const mobileMenu = document.getElementById('mobile-menu');
 
   if (!menuBtn || !mobileMenu) return;
@@ -99,10 +100,13 @@ function setupMobileMenu() {
   let isOpen = false;
 
   function openMobileMenu() {
+    if (isOpen) return;
     isOpen = true;
     mobileMenu.classList.remove('hidden', 'menu-closed');
     mobileMenu.classList.add('menu-open');
-    menuBtn.innerHTML = `<i class="fa-solid fa-xmark text-2xl text-cinnamon-700 dark:text-amber-400 transform rotate-90 transition-transform duration-300"></i>`;
+    if (menuIcon) {
+      menuIcon.className = 'fa-solid fa-xmark text-2xl text-cinnamon-700 dark:text-amber-400 transition-all duration-300 rotate-90';
+    }
   }
 
   function closeMobileMenu() {
@@ -110,7 +114,9 @@ function setupMobileMenu() {
     isOpen = false;
     mobileMenu.classList.remove('menu-open');
     mobileMenu.classList.add('menu-closed');
-    menuBtn.innerHTML = `<i class="fa-solid fa-bars text-xl text-stone-700 dark:text-slate-200 transition-transform duration-300"></i>`;
+    if (menuIcon) {
+      menuIcon.className = 'fa-solid fa-bars text-xl text-stone-700 dark:text-slate-200 transition-all duration-300';
+    }
     setTimeout(() => {
       if (!isOpen) mobileMenu.classList.add('hidden');
     }, 300);
@@ -140,14 +146,16 @@ function setupMobileMenu() {
     }
   });
 
-  // Auto-close on scroll
+  // Auto-close immediately on scroll or wheel
   window.addEventListener('scroll', () => {
-    if (isOpen) {
-      closeMobileMenu();
-    }
+    if (isOpen) closeMobileMenu();
   }, { passive: true });
 
-  // Swipe detection to close menu when user swipes up or scrolls
+  window.addEventListener('wheel', () => {
+    if (isOpen) closeMobileMenu();
+  }, { passive: true });
+
+  // Touch swipe & touch scroll detection: close menu as soon as user starts swiping/scrolling
   let touchStartY = 0;
   window.addEventListener('touchstart', (e) => {
     touchStartY = e.touches[0].clientY;
@@ -156,9 +164,8 @@ function setupMobileMenu() {
   window.addEventListener('touchmove', (e) => {
     if (!isOpen) return;
     const touchCurrentY = e.touches[0].clientY;
-    const diffY = touchStartY - touchCurrentY;
-    // If user swipes up or down significantly while menu is open
-    if (Math.abs(diffY) > 25) {
+    const diffY = Math.abs(touchStartY - touchCurrentY);
+    if (diffY > 3) {
       closeMobileMenu();
     }
   }, { passive: true });
