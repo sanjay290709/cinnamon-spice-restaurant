@@ -98,12 +98,15 @@ function setupMobileMenu() {
   if (!menuBtn || !mobileMenu) return;
 
   let isOpen = false;
+  let openTime = 0;
 
   function openMobileMenu() {
     if (isOpen) return;
     isOpen = true;
+    openTime = Date.now();
     mobileMenu.classList.remove('hidden', 'menu-closed');
     mobileMenu.classList.add('menu-open');
+    document.body.classList.add('overflow-hidden');
     if (menuIcon) {
       menuIcon.className = 'fa-solid fa-xmark text-2xl text-cinnamon-700 dark:text-amber-400 transition-all duration-300 rotate-90';
     }
@@ -114,6 +117,7 @@ function setupMobileMenu() {
     isOpen = false;
     mobileMenu.classList.remove('menu-open');
     mobileMenu.classList.add('menu-closed');
+    document.body.classList.remove('overflow-hidden');
     if (menuIcon) {
       menuIcon.className = 'fa-solid fa-bars text-xl text-stone-700 dark:text-slate-200 transition-all duration-300';
     }
@@ -141,31 +145,23 @@ function setupMobileMenu() {
 
   // Auto-close when clicking anywhere outside header & mobile menu
   document.addEventListener('click', (e) => {
-    if (isOpen && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+    if (isOpen && (Date.now() - openTime > 200) && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
       closeMobileMenu();
     }
   });
 
-  // Auto-close immediately on scroll or wheel
-  window.addEventListener('scroll', () => {
-    if (isOpen) closeMobileMenu();
-  }, { passive: true });
-
-  window.addEventListener('wheel', () => {
-    if (isOpen) closeMobileMenu();
-  }, { passive: true });
-
-  // Touch swipe & touch scroll detection: close menu as soon as user starts swiping/scrolling
+  // Swipe-up to dismiss on the mobile menu drawer (after 350ms cooldown)
   let touchStartY = 0;
-  window.addEventListener('touchstart', (e) => {
+  mobileMenu.addEventListener('touchstart', (e) => {
     touchStartY = e.touches[0].clientY;
   }, { passive: true });
 
-  window.addEventListener('touchmove', (e) => {
-    if (!isOpen) return;
+  mobileMenu.addEventListener('touchmove', (e) => {
+    if (!isOpen || (Date.now() - openTime < 350)) return;
     const touchCurrentY = e.touches[0].clientY;
-    const diffY = Math.abs(touchStartY - touchCurrentY);
-    if (diffY > 3) {
+    const diffY = touchStartY - touchCurrentY;
+    // Swipe UP gesture on the drawer
+    if (diffY > 40) {
       closeMobileMenu();
     }
   }, { passive: true });
