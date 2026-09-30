@@ -106,10 +106,11 @@ function setupMobileMenu() {
     openTime = Date.now();
     mobileMenu.classList.remove('hidden', 'menu-closed');
     mobileMenu.classList.add('menu-open');
-    document.body.classList.add('overflow-hidden');
-    if (menuIcon) {
-      menuIcon.className = 'fa-solid fa-xmark text-2xl text-cinnamon-700 dark:text-amber-400 transition-all duration-300 rotate-90';
-    }
+    // Inline style ensures scroll lock works regardless of Tailwind purging
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    // Swap hamburger to × using innerHTML for guaranteed icon change
+    menuBtn.innerHTML = '<i class="fa-solid fa-xmark" style="font-size:1.4rem; color:#c2410c; transition: transform 0.3s; transform: rotate(90deg);"></i>';
   }
 
   function closeMobileMenu() {
@@ -117,10 +118,11 @@ function setupMobileMenu() {
     isOpen = false;
     mobileMenu.classList.remove('menu-open');
     mobileMenu.classList.add('menu-closed');
-    document.body.classList.remove('overflow-hidden');
-    if (menuIcon) {
-      menuIcon.className = 'fa-solid fa-bars text-xl text-stone-700 dark:text-slate-200 transition-all duration-300';
-    }
+    // Release scroll lock
+    document.body.style.overflow = '';
+    document.body.style.touchAction = '';
+    // Restore hamburger icon
+    menuBtn.innerHTML = '<i id="mobile-menu-icon" class="fa-solid fa-bars" style="font-size:1.25rem; transition: transform 0.3s;"></i>';
     setTimeout(() => {
       if (!isOpen) mobileMenu.classList.add('hidden');
     }, 300);
@@ -162,6 +164,13 @@ function setupMobileMenu() {
     const diffY = touchStartY - touchCurrentY;
     // Swipe UP gesture on the drawer
     if (diffY > 40) {
+      closeMobileMenu();
+    }
+  }, { passive: true });
+
+  // Auto-close menu if user scrolls the page (belt + braces for scroll-lock)
+  window.addEventListener('scroll', () => {
+    if (isOpen && (Date.now() - openTime > 400)) {
       closeMobileMenu();
     }
   }, { passive: true });
