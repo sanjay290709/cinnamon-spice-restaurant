@@ -171,3 +171,25 @@
 .group:hover .img-zoom {
   transform: scale(1.08);
 }
+
+/* Smooth Mobile Drawer Transition Styles */
+#mobile-menu {
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.3s ease-in-out, 
+              padding 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+#mobile-menu.menu-closed {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  pointer-events: none;
+}
+
+#mobile-menu.menu-open {
+  max-height: 500px !important;
+  opacity: 1 !important;
+  pointer-events: auto;
+}

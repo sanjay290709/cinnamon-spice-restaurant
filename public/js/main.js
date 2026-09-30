@@ -1,4 +1,4 @@
-// Main UI Engine: Modern Animations, Theme Switcher & Scroll Observer
+// Main UI Engine: Modern Animations, Theme Switcher, Mobile Menu & Scroll Observer
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
@@ -72,7 +72,7 @@ function setTheme(theme) {
   if (theme === 'dark') {
     html.classList.add('dark');
     localStorage.setItem('theme', 'dark');
-    if (icon) icon.className = 'fa-solid fa-sun text-amber-400 animate-spin-slow';
+    if (icon) icon.className = 'fa-solid fa-sun text-amber-400';
     if (iconMobile) iconMobile.className = 'fa-solid fa-sun text-amber-400';
     if (label) label.textContent = 'Light Mode';
   } else {
@@ -89,15 +89,79 @@ function setTheme(theme) {
   }
 }
 
+// Mobile Menu Handler (Smooth Open/Close, Icon Toggle to ×, Swipe & Auto-Close on Click/Scroll)
 function setupMobileMenu() {
   const menuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
 
-  if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+  if (!menuBtn || !mobileMenu) return;
+
+  let isOpen = false;
+
+  function openMobileMenu() {
+    isOpen = true;
+    mobileMenu.classList.remove('hidden', 'menu-closed');
+    mobileMenu.classList.add('menu-open');
+    menuBtn.innerHTML = `<i class="fa-solid fa-xmark text-2xl text-cinnamon-700 dark:text-amber-400 transform rotate-90 transition-transform duration-300"></i>`;
   }
+
+  function closeMobileMenu() {
+    if (!isOpen) return;
+    isOpen = false;
+    mobileMenu.classList.remove('menu-open');
+    mobileMenu.classList.add('menu-closed');
+    menuBtn.innerHTML = `<i class="fa-solid fa-bars text-xl text-stone-700 dark:text-slate-200 transition-transform duration-300"></i>`;
+    setTimeout(() => {
+      if (!isOpen) mobileMenu.classList.add('hidden');
+    }, 300);
+  }
+
+  // Toggle on button click
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  // Auto-close when clicking any link inside mobile menu
+  mobileMenu.querySelectorAll('a, .glf-button').forEach(item => {
+    item.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+  });
+
+  // Auto-close when clicking anywhere outside header & mobile menu
+  document.addEventListener('click', (e) => {
+    if (isOpen && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+      closeMobileMenu();
+    }
+  });
+
+  // Auto-close on scroll
+  window.addEventListener('scroll', () => {
+    if (isOpen) {
+      closeMobileMenu();
+    }
+  }, { passive: true });
+
+  // Swipe detection to close menu when user swipes up or scrolls
+  let touchStartY = 0;
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!isOpen) return;
+    const touchCurrentY = e.touches[0].clientY;
+    const diffY = touchStartY - touchCurrentY;
+    // If user swipes up or down significantly while menu is open
+    if (Math.abs(diffY) > 25) {
+      closeMobileMenu();
+    }
+  }, { passive: true });
 }
 
 function triggerGloriaFoodOrder() {
