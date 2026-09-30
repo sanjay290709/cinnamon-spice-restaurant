@@ -1,4 +1,9 @@
-/* Premium Modern Website Animations for Cinnamon Spice */
+/* Premium Modern Website Animations & Mobile Optimization for Cinnamon Spice */
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
 
 @layer utilities {
   .scrollbar-none::-webkit-scrollbar {
@@ -138,8 +143,10 @@
               border-color 0.4s ease;
 }
 
-.card-modern:hover {
-  transform: translateY(-6px) scale(1.01);
+@media (min-width: 769px) {
+  .card-modern:hover {
+    transform: translateY(-6px) scale(1.01);
+  }
 }
 
 /* Scroll Reveal Animations */
@@ -154,6 +161,17 @@
 .reveal-fade-up.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Mobile Specific Animation & Layout Optimizations */
+@media (max-width: 768px) {
+  .reveal-fade-up {
+    transform: translateY(12px) !important;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out !important;
+  }
+  .animate-orb-1, .animate-orb-2 {
+    display: none !important;
+  }
 }
 
 /* Stagger Delays */

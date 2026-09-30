@@ -113,8 +113,8 @@ function renderMenuGrid() {
       <div class="card-modern bg-white dark:bg-darkbg-card rounded-3xl overflow-hidden border border-amber-200/90 dark:border-darkbg-border hover:border-cinnamon-600/60 dark:hover:border-amber-500/50 shadow-md hover:shadow-2xl hover:shadow-amber-500/10 group flex flex-col justify-between reveal-fade-up ${delayClass}">
         <div>
           <!-- Image Container with Zoom Effect -->
-          <div class="relative h-52 overflow-hidden bg-amber-50 dark:bg-darkbg-main">
-            <img src="${item.image}" alt="${item.name}" class="img-zoom w-full h-full object-cover">
+          <div class="relative h-52 overflow-hidden bg-amber-100 dark:bg-darkbg-main">
+            <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80';" class="img-zoom w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition"></div>
             
             <div class="absolute top-3 right-3 bg-cinnamon-700/90 dark:bg-black/75 backdrop-blur-md text-white dark:text-amber-400 px-3.5 py-1 rounded-full text-xs font-extrabold shadow-lg border border-amber-300/40 dark:border-amber-500/30 transform group-hover:scale-105 transition duration-300">
